@@ -13,11 +13,11 @@ var burger = function () {
 			cb(result);
 		})
 	}
-	updateBurger: function(burgername, devoured, cb) {
+	updateBurger: function(burgername, devoured, id, cb) {
 		//updateOne: function(tablename, objColVals, condition, cb) 
-		orm.updateOne("burgers", {burger_name: burgername, devoured: devoured}, "burger_name="+burgername, (result) => {
+		orm.updateOne("burgers", {burger_name: burgername, devoured: devoured}, "id="+id, (result) => {
 			cb(result);
-		} )
+		})
 	}
 };
 

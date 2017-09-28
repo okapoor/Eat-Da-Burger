@@ -1,0 +1,1 @@
+insert into burgers (burger_name, devoured) values ("Veggie Burger", true), ("Meat Lover", true), ("Vegan Burger", false)

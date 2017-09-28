@@ -15,7 +15,7 @@ function objToSql(ob) {
 }
 
 
-var orm = function() {
+var orm = {
 	selectAll: function(tablename, cb) {
 		var query = "select * from " + tablename;
 		connection.query(query, (error, result) => {
@@ -25,16 +25,29 @@ var orm = function() {
 		})
 	},
 	insertOne: function(tablename, cols, values, cb) {
-		var sql = "insert into " + tablename + " (" + cols.toString() + ") values (" + values.toString() + ") ";
-		connection.query(sql, (error, result) => {
-			if  (error) throw error;
+		// var sql = "insert into " + tablename + " (" + cols.toString() + ") values (\"" + values.toString() + "\") ";
+
+	    var queryString = "INSERT INTO " + tablename;
+
+	    queryString += " (";
+	    queryString += cols.toString();
+	    queryString += ") ";
+	    queryString += "VALUES (?,?";
+	    queryString += ") ";
+
+	    // console.log(queryString);
+
+		connection.query(queryString,values, (error, result) => {
+			if  (error) throw error.stack;
 
 			cb(result);
 		})
 	},
 	updateOne: function(tablename, objColVals, condition, cb) {
-	    var queryString = "UPDATE " + table;
 
+		console.log(objColVals);
+		console.log(condition);
+	    var queryString = "UPDATE " + tablename;
 	    queryString += " SET ";
 	    queryString += objToSql(objColVals);
 	    queryString += " WHERE ";
